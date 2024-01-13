@@ -14,12 +14,26 @@ import { ProjectsService } from '../_services/projects.service';
 export class ProjectsComponent implements OnInit {
 
   projects = {} as Project[];
-
+  isCollapsed: boolean = true;
+  terraform: boolean = false;
+  kubernetes: boolean = false;
   
   constructor(private titleService: Title, private projectService: ProjectsService) {
     this.titleService.setTitle('Phani - projects')
   }
   ngOnInit(): void {
     this.projects = this.projectService.GetProjects();
+  }
+
+  Filter() {
+
+    let filterTags: Tag[] = [];
+    if ( this.terraform) { 
+      filterTags.push(Tag.TERRAFORM);
+    }
+    if ( this.kubernetes) { 
+      filterTags.push(Tag.KUBERNETES);
+    }
+    this.projects = this.projectService.GetProjectsByFilter(filterTags);
   }
 }

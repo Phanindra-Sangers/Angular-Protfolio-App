@@ -64,7 +64,7 @@ input[type='password']{
 }
 
 .fa-eye-slash.btn{
-    broder: none;
+    border: none;
     outline: none;
     box-shadow: none;
 }

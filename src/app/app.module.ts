@@ -16,8 +16,17 @@ import {ModalModule} from 'ngx-bootstrap/modal';
 import { ProjectModalComponent } from './project-modal/project-modal.component';
 import { CarouselModule} from 'ngx-bootstrap/carousel';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {AccordionModule } from 'ngx-bootstrap/accordion';
+import { SignupComponent } from './signup/signup.component';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { TokenInterceptor } from './interceptors/token.interceptor';
+
+
+
+
+
 
 @NgModule({
   declarations: [
@@ -31,7 +40,10 @@ import {AccordionModule } from 'ngx-bootstrap/accordion';
     LoginComponent,
     MediumBlogsComponent,
     ProjectCardComponent,
-    ProjectModalComponent
+    ProjectModalComponent,
+    SignupComponent,
+    DashboardComponent
+    
   ],
   imports: [
     BrowserModule,
@@ -41,10 +53,16 @@ import {AccordionModule } from 'ngx-bootstrap/accordion';
     CarouselModule.forRoot(),
     CollapseModule.forRoot(),
     AccordionModule.forRoot(),
-    FormsModule
-
+    FormsModule,
+    HttpClientModule,
+    ReactiveFormsModule
+   
   ],
-  providers: [],
+  providers: [{
+    provide:HTTP_INTERCEPTORS,
+    useClass:TokenInterceptor,
+    multi:true 
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

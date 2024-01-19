@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component , OnInit} from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import {FormBuilder , FormControl,FormGroup,Validators} from '@angular/forms';
 import { AuthService } from '../services/auth.service';
@@ -58,13 +58,9 @@ export class LoginComponent {
       })
     }
     else{
-
-      console.log("Form is not valid")
-
       //throw the error using toaster and with required fields 
 
       ValidateForm.ValidateAllFormFields(this.loginForm);
-      alert("Your form is invalid")
     }
   }
 

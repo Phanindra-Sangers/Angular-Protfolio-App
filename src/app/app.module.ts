@@ -22,6 +22,7 @@ import { SignupComponent } from './signup/signup.component';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TokenInterceptor } from './interceptors/token.interceptor';
+import { ResetComponent } from './reset/reset.component';
 
 
 
@@ -42,7 +43,8 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
     ProjectCardComponent,
     ProjectModalComponent,
     SignupComponent,
-    DashboardComponent
+    DashboardComponent,
+    ResetComponent
     
   ],
   imports: [

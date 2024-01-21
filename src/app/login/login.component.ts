@@ -5,6 +5,8 @@ import { AuthService } from '../services/auth.service';
 import ValidateForm from '../helpers/validateform';
 import { Router } from '@angular/router';
 import { UserStoreService } from '../services/user-store.service';
+import { ResetPasswordService } from '../services/reset-password.service';
+
 
 
 @Component({
@@ -18,10 +20,16 @@ export class LoginComponent {
   isText: boolean = false;
   eyeIcon: string = "fa-eye-slash";
   loginForm!: FormGroup;
-  constructor(private titleService: Title, private fb:FormBuilder, private auth: AuthService, private router:Router, private userStore: UserStoreService) {
-    this.titleService.setTitle('Phani - Login')
-
-  }
+  public resetPasswordEmail!: string;
+  public isValidEmail!: boolean;
+  constructor(
+    private titleService: Title,
+    private fb:FormBuilder,
+    private auth: AuthService,
+    private router:Router,
+    private userStore: UserStoreService,
+    private  resetService: ResetPasswordService
+    ){this.titleService.setTitle('Phani - Login')}
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -64,5 +72,43 @@ export class LoginComponent {
     }
   }
 
-  
+   checkValidEmail(event: string){
+    const value = event;
+    const pattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,3}$/;
+    this.isValidEmail = pattern.test(value);
+    return this.isValidEmail;
+
+   }
+
+   confirmToSend(){
+    if(this.checkValidEmail(this.resetPasswordEmail)){
+      console.log(this.resetPasswordEmail);
+      
+      this.resetService.sendResetPasswordLink(this.resetPasswordEmail)
+      .subscribe({
+        next:(res)=>{
+
+        alert("reset success")
+          
+      this.resetPasswordEmail = "";
+      const buttonRef = document.getElementById("closeBtn");
+      buttonRef?.click();
+      },
+      error:(err)=>{
+
+        alert("Something Went Wrong")
+       
+      }
+    })
+    
+  }
 }
+}
+
+      
+    
+   
+    
+  
+  
+
